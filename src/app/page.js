@@ -1,11 +1,32 @@
-'use  client'
+"use client"
 import Image from "next/image";
 import NavbarComponent from "@/components/Navbar";
 import { MdAccessTime } from "react-icons/md";
 import { FaUniversity } from "react-icons/fa";
 import Link from "next/link";
+import Instructions from "@/components/Instructions";
+import { useEffect } from "react";
 
 export default function Home() {
+
+//  useEffect(
+//   () => {
+//     const captureMedia = async () => {
+//       try {
+//         const capturedStream = await navigator.mediaDevices.getUserMedia({
+//           video: true,
+//           audio: true
+//         })
+  
+//         console.log("Media captured successfully");
+//       } catch (error) {
+//         console.log("Error", error)
+//       }
+//     }
+//     captureMedia();
+//   }, []
+//  )
+
   return (
     <>
       <div className="sticky">
@@ -34,36 +55,8 @@ export default function Home() {
               <span className="text-sm">26 Minutes</span>
             </div>
           </div>
-          <div className="text-white px-10 w-full text-justify mt-10 ">
-            <h3 className="text-xl font-semibold">Instructions</h3>
-            <div className="flex flex-col gap-3 mt-4 text-gray-100 text-base">
-              <p>
-                1. Ensure stable internet and choose a clean, quiet location.
-              </p>
-              <p>
-                2. Permission for access of camera, microphone, entire screen
-                sharing is required.
-              </p>
-              <p>3. Be in professional attire and avoid distractions.</p>
-              <p>
-                4. Give a detailed response, providing as much information as
-                you can.
-              </p>
-              <p>
-                5. Answer the question with examples and projects you've worked
-                on.
-              </p>
-            </div>
-            <div className="bg-[#263143] rounded-xl mt-6 px-6 py-2 ">
-              <span className="text-[#6C60F4] hover:text-violet-700">
-                <Link href={"#"}>Click here</Link>
-              </span>{" "}
-              to try a mock interview with Avya, our AI interviewer, and build
-              your confidence before the main interview!
-            </div>
-            <button className=" mt-6 w-full bg-[#5143ea] py-2 rounded-lg hover:bg-[#3b2ce9]  ">
-              Start Now
-            </button>
+          <div>
+            <Instructions />
           </div>
         </div>
       </div>
