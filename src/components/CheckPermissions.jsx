@@ -2,84 +2,72 @@
 import React, { useState, useRef, useEffect } from "react";
 
 const MediaRecorderComponent = () => {
-  const [isRecording, setIsRecording] = useState(false);
-  const [recordedChunks, setRecordedChunks] = useState([]);
-  const [permissionGranted, setPermissionGranted] = useState(null); // Track permission state
-  const mediaRecorderRef = useRef(null);
-  const videoRef = useRef(null);
+  const [isRecordingOnOn, setisRecordingOn] = useState(false);
+  const [recordedData, setrecordedData] = useState([]);
+  const [isPermission, setisPermission] = useState(null); // Track permission state
+  const mediaRecorderReference = useRef(null);
+  const videoReference = useRef(null);
 
-  const requestPermissions = async () => {
+  const askPermissions = async () => {
     try {
-      // Request user permissions for video and audio
       const stream = await navigator.mediaDevices.getUserMedia({
         video: true,
         audio: true,
       });
 
-      // Set the video preview
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
+      if (videoReference.current) {
+        videoReference.current.srcObject = stream;
       }
 
-      // Mark permission as granted
-      setPermissionGranted(true);
+      setisPermission(true);
     } catch (error) {
       console.error("Error accessing media devices:", error);
-      // Mark permission as denied
-      setPermissionGranted(false);
+      setisPermission(false);
     }
   };
 
-  const startRecording = async () => {
-    if (permissionGranted === null) {
-      // If permission status is unknown, request permission first
-      await requestPermissions();
+  const recordingStart = async () => {
+    if (isPermission === null) {
+      await askPermissions();
     }
 
-    if (permissionGranted) {
+    if (isPermission) {
       try {
-        // Initialize the MediaRecorder after permission is granted
-        const stream = videoRef.current.srcObject;
+        const stream = videoReference.current.srcObject;
         const mediaRecorder = new MediaRecorder(stream);
-        mediaRecorderRef.current = mediaRecorder;
+        mediaRecorderReference.current = mediaRecorder;
 
-        // Handle the data available event
         mediaRecorder.ondataavailable = (event) => {
           if (event.data.size > 0) {
-            setRecordedChunks((prev) => [...prev, event.data]);
+            setrecordedData((prev) => [...prev, event.data]);
           }
         };
 
-        // Start recording
         mediaRecorder.start();
-        setIsRecording(true);
+        setisRecordingOn(true);
       } catch (error) {
         console.error("Error starting recording:", error);
       }
     }
   };
 
-  const stopRecording = () => {
-    // Stop the MediaRecorder
-    if (mediaRecorderRef.current) {
-      mediaRecorderRef.current.stop();
+  const recordingStop = () => {
+    if (mediaRecorderReference.current) {
+      mediaRecorderReference.current.stop();
     }
 
-    // Stop all tracks of the stream
-    if (videoRef.current.srcObject) {
-      const tracks = videoRef.current.srcObject.getTracks();
+    if (videoReference.current.srcObject) {
+      const tracks = videoReference.current.srcObject.getTracks();
       tracks.forEach((track) => track.stop());
     }
 
-    setIsRecording(false);
+    setisRecordingOn(false);
   };
 
-  const downloadRecording = () => {
-    // Create a Blob from recorded chunks
-    const blob = new Blob(recordedChunks, { type: "video/webm" });
+  const recordingDownload = () => {
+    const blob = new Blob(recordedData, { type: "video/webm" });
     const url = URL.createObjectURL(blob);
 
-    // Trigger a download
     const a = document.createElement("a");
     a.href = url;
     a.download = "recording.webm";
@@ -87,9 +75,8 @@ const MediaRecorderComponent = () => {
     URL.revokeObjectURL(url);
   };
 
-  // Request permission as soon as the component mounts
   useEffect(() => {
-    requestPermissions();
+    askPermissions();
     console.log("Hello")
   }, []);
 
@@ -97,7 +84,7 @@ const MediaRecorderComponent = () => {
     <div className="p-4">
       <div>
         <video
-          ref={videoRef}
+          ref={videoReference}
           autoPlay
           playsInline
           muted
@@ -105,37 +92,37 @@ const MediaRecorderComponent = () => {
         />
       </div>
       <div className="mt-4">
-        {permissionGranted === null ? (
+        {isPermission === null ? (
           <div>
             <p className="text-white mt-2">
               Please grant permissions to use audio/video.
             </p>
           </div>
-        ) : permissionGranted === false ? (
+        ) : isPermission === false ? (
           <p className="text-red-500">
             Permissions were denied. Please allow access to audio and video
             devices.
           </p>
         ) : (
           <>
-            {!isRecording ? (
+            {!isRecordingOn ? (
               <button
-                onClick={startRecording}
+                onClick={recordingStart}
                 className="px-4 py-2 bg-green-500 text-white rounded-lg"
               >
                 Start Recording
               </button>
             ) : (
               <button
-                onClick={stopRecording}
+                onClick={recordingStop}
                 className="px-4 py-2 bg-red-500 text-white rounded-lg"
               >
                 Stop Recording
               </button>
             )}
-            {recordedChunks.length > 0 && (
+            {recordedData.length > 0 && (
               <button
-                onClick={downloadRecording}
+                onClick={recordingDownload}
                 className="ml-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
               >
                 Download Recording
