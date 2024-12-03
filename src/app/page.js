@@ -12,10 +12,12 @@ export default function Home() {
         <NavbarComponent />
       </div>
      
-      <div className="flex bg-[#161D29] h-screen pt-12 px-32 scroll-none">
+      <div className="flex bg-[#161D29] h-fit pt-12 px-32 scroll-none pb-8">
         <div className="w-3/5 h-fit px-6 ">
           <div className="text-2xl font-semibold text-white">Trainee Interview</div>
-          <div></div>
+          <div className="bg-black w-[570px] h-[500px] mt-10 rounded-lg overflow-hidden">
+             
+          </div>
         </div>
         <div className="w-[570px] h-fit">
           <div className="flex justify-end gap-4">
