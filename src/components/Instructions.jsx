@@ -19,13 +19,19 @@ import { IoIosCheckboxOutline } from "react-icons/io";
 import { IoMicOutline } from "react-icons/io5";
 import { IoVolumeHighOutline } from "react-icons/io5";
 import { MdOutlineScreenShare } from "react-icons/md";
+import { useRouter } from "next/navigation";
 
 const Instructions = () => {
   const [cameraAccess, setCameraAccess] = useState(true);
   const [isCameraOpen, setIsCameraOpen] = useState(false);
+  const router = useRouter();
 
   const grantCameraAccess = () => {
     setIsCameraOpen(true);
+  };
+
+  const navigateToFirstQuestion = () => {
+    router.push("/questionPage/0");
   };
 
   const closeGrantAccess = () => {
@@ -123,7 +129,7 @@ const Instructions = () => {
           </div>
           <button
             className=" mt-6 w-full bg-[#6C60F4] py-2 rounded-lg hover:bg-[#3b2ce9]  "
-            onClick={grantCameraAccess}
+            onClick={navigateToFirstQuestion}
           >
             Start Interview
           </button>
