@@ -56,7 +56,7 @@ const Instructions = () => {
               can.
             </p>
             <p>
-              5. Answer the question with examples and projects you've worked
+              5. Answer the question with examples and projects you have worked
               on.
             </p>
           </div>
