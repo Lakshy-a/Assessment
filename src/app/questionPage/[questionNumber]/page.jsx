@@ -64,6 +64,9 @@ export default function Question() {
   return (
     <div className="w-screen h-screen bg-[#161D29] flex justify-center items-center text-white text-xl">
       {arrayOfQuestions[number]?.question}
+      <button className="bg-[#161D29] text-white px-6 py-1 rounded-lg border " onClick={() => {
+        router.push(`/answerQuestion/${number}`);
+      }}>Next Page</button>
     </div>
   );
 }

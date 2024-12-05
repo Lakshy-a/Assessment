@@ -62,9 +62,9 @@ export default function AnswerQuestion() {
     <>
       <div className="w-screen h-screen bg-[#161D29] flex flex-col justify-center items-center gap-4">
         <div className="text-white">
-          {number}/{arrayOfQuestions.length}
+          {number+1}/{arrayOfQuestions.length}
         </div>
-        <p className="text-white">{arrayOfQuestions[number - 1].question}</p>
+        <p className="text-white">{arrayOfQuestions[number].question}</p>
         <div className="text-white flex gap-2">
           <div>Timer: </div>
           <div className="text-orange-700 flex gap-1 items-center bg-orange-100 px-3 py-1 rounded-lg">
@@ -91,7 +91,9 @@ export default function AnswerQuestion() {
             />
           </div>
         )}
-        <button className="px-4 py-2 bg-[#6C60F4] rounded-lg text-white font-semibold hover:bg-[#3b2ce9]">Save & Next</button>
+        <button className="px-4 py-2 mt-2 bg-[#6C60F4] rounded-lg text-white font-semibold hover:bg-[#3b2ce9]" onClick={() => {
+          router.push(`/loader/${number}`)
+        }}>Save & Next</button>
       </div>
     </>
   );
