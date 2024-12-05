@@ -39,7 +39,7 @@ export default function Loader() {
           </div>
         </div>
         <div className="text-lg mt-4">
-          That's great! Just give me a moment to take notes
+          That s great! Just give me a moment to take notes
         </div>
         <button
           className="bg-white text-black px-4 py-2 rounded-lg"
