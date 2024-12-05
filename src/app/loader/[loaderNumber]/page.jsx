@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from "next/navigation";
 
-export default function loader() {
+export default function Loader() {
   const router = useRouter();
   const { loaderNumber } = useParams();
   const number = Number(loaderNumber);
