@@ -104,7 +104,7 @@ const NavbarComponent = () => {
               </CardContent>
               <div className="w-full px-8 text-center flex text-xs">
                 <p>
-                  By going forward, you're agreeing to MyWays Terms of{" "}
+                  By going forward, you are agreeing to MyWays Terms of{" "}
                   <span className="text-blue-500">
                     Use and Privacy Policies
                   </span>
